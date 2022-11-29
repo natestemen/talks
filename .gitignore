@@ -14,3 +14,5 @@
 *.vrb
 *.snippets
 *.pyg
+
+.ipynb_checkpoints
