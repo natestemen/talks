@@ -9,7 +9,8 @@
 *.out
 *.xml
 *.snm
-*.gz
+*.synctex.gz
+*.synctex(busy)
 *.toc
 *.vrb
 *.snippets
