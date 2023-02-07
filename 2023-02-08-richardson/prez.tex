@@ -1,0 +1,85 @@
+\documentclass[11pt,aspectratio=1610,xcolor=dvipsnames]{beamer}
+
+\usetheme[
+    background=light,
+    numbering=fraction,
+    block=fill,
+    progressbar=frametitle
+]{metropolis}
+
+\graphicspath{{img/}}
+
+\usepackage[style=authortitle-ibid,backend=biber]{biblatex}
+\addbibresource{refs.bib}
+\setbeamerfont{footnote}{size=\scriptsize}
+
+\usepackage{physics}
+\usepackage{bbm}
+\usepackage{booktabs}
+\usepackage[most,skins,theorems]{tcolorbox}
+\tcbset{variables/.style={colback=yellow!20,colframe=yellow}}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, shadows}
+\usetikzlibrary{fit, backgrounds}
+
+
+
+% \colorlet{LightLavender}{Lavender!40!}
+\newtcolorbox{prob}{colback=red!5!white,colframe=red!75!black}
+\usefonttheme[onlymath]{serif}
+\usepackage{quantikz}
+\usepackage{qrcode}
+\usepackage{pgfplots}
+\usepackage{pythonhighlight}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\U}[1]{\mathsf{U}(#1)}
+\newcommand{\defeq}{\stackrel{\text{\tiny def}}{=}}
+
+\titlegraphic{\includegraphics[width=0.3\textwidth]{unitary_fund_logo.png}}
+
+\title{Richardson Extrapolation}
+\subtitle{Quantum Wednesday}
+\date{Feb 8, 2023}
+\author{Nate Stemen}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Today's Paper}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{abstract.png}
+	\end{figure}
+	\begin{center}
+		\url{https://arxiv.org/abs/2201.08080}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Overview}
+	\begin{enumerate}
+		\item Overview of Quantum Error Mitigation (QEM)
+		      \begin{itemize}
+			      \item Zero-Noise Extrapolation (ZNE)
+			      \item Probabilistic Error Cancellation (PEC)
+		      \end{itemize}
+		\item Overview of Mitiq
+		\item Unitary Fund
+	\end{enumerate}
+	\note{
+		there will be time for questions at the end, but if there is something that needs more immediate clarification, please don't hesitate to interrupt
+	}
+\end{frame}
+
+% \begin{frame}{References}
+% 	\nocite{*}
+% 	\printbibliography[heading=none]
+% \end{frame}
+
+\begin{frame}[standout]
+	Thank you!
+\end{frame}
+
+\end{document}
