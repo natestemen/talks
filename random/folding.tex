@@ -1,0 +1,26 @@
+\documentclass[varwidth, border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{quantikz}
+\usepackage{anyfontsize}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\begin{document}
+\begin{center}
+    \begin{quantikz}
+        & \gate{} & \gate[2]{}  & \qw     & \qw     & \gate[2, style={fill=red!20}]{\dagger} & \gate[style={fill=red!20}]{\dagger} & \gate{} & \gate[2]{}  & \qw     & \qw \\
+        & \qw     &             & \gate{} & \gate[style={fill=red!20}]{\dagger} &            & \qw     & \qw     &             & \gate{} & \qw
+    \end{quantikz}
+\end{center}
+
+\begin{center}
+    {\fontsize{50pt}{56pt}\selectfont \rotatebox{20}{\color{red!50}vs}}
+\end{center}
+
+\begin{center}
+    \begin{quantikz}
+        & \gate{} & \qw & \qw & \qw & \qw & \gate[2]{} & \qw & \qw & \qw & \qw & \qw     & \qw \\
+        & \qw     & \qw & \qw & \qw & \qw &            & \qw & \qw & \qw & \qw & \gate{} & \qw
+    \end{quantikz}
+\end{center}
+\end{document}
