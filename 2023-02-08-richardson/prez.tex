@@ -60,17 +60,61 @@
 
 \begin{frame}{Overview}
 	\begin{enumerate}
-		\item Overview of Quantum Error Mitigation (QEM)
-		      \begin{itemize}
-			      \item Zero-Noise Extrapolation (ZNE)
-			      \item Probabilistic Error Cancellation (PEC)
-		      \end{itemize}
-		\item Overview of Mitiq
-		\item Unitary Fund
+		\item What is Richardson Extrapolation?
+		\item How do we \emph{already} use it?
+		\item What sort of optimizations do the authors find?
+		\item Should we implement this?
 	\end{enumerate}
-	\note{
-		there will be time for questions at the end, but if there is something that needs more immediate clarification, please don't hesitate to interrupt
-	}
+\end{frame}
+
+\begin{frame}{What is extrapolation?}
+
+\end{frame}
+
+\begin{frame}[fragile]{How do we use Richardson Extrapolation?}
+	% \begin{noindent}
+	\begin{python}
+		class RichardsonFactory():
+			def extrapolate(
+				scale_factors: Sequence[float],
+				exp_values: Sequence[float],
+				full_output: bool = False,
+			) -> ExtrapolationResult:
+				# Richardson extrapolation is a particular case of a
+				# polynomial fit with order equal to the number of
+				# data points minus 1.
+				order = len(scale_factors) - 1
+				return PolyFactory.extrapolate(
+					scale_factors, exp_values, order, full_output
+				)
+	\end{python}
+	% \end{noindent}
+\end{frame}
+
+\begin{frame}{What could we optimize?}
+	\begin{enumerate}
+		\item Is there a way to reduce the increase in variance?
+		\item Is there a scaling method for the $x_i$'s that optimizes the bias/variance tradeoff?
+		\item Is there an optimal number of samples $n$?
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Node Spacing}
+
+	\begin{align*}
+		x_j^\mathrm{L} & = 1 + j(x_1 - 1)                                                                             \\
+		x_j^\mathrm{E} & = x_1^j                                                                                      \\
+		x_j^\mathrm{C} & = 1 + \frac{\sin^2(\frac{j}{n}\frac{\pi}{2})}{\sin^2(\frac{1}{n}\frac{\pi}{2})}(x_1 - 1)     \\
+		x_j^\mathrm{T} & = 1 + \frac{\sin^2(\frac{j}{n+1}\frac{\pi}{2})}{\sin^2(\frac{1}{n+1}\frac{\pi}{2})}(x_1 - 1)
+	\end{align*}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\textwidth]{spacing.png}
+		\caption{<caption>}
+		\label{<label>}
+	\end{figure}
+
 \end{frame}
 
 % \begin{frame}{References}
