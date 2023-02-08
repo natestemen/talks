@@ -14,6 +14,7 @@
 \setbeamerfont{footnote}{size=\scriptsize}
 
 \usepackage{physics}
+\usepackage{mathtools}
 \usepackage{bbm}
 \usepackage{booktabs}
 \usepackage[most,skins,theorems]{tcolorbox}
@@ -63,7 +64,6 @@
 		\item What is Richardson Extrapolation?
 		\item How do we \emph{already} use it?
 		\item What sort of optimizations do the authors find?
-		\item Should we implement this?
 	\end{enumerate}
 \end{frame}
 
@@ -91,6 +91,55 @@
 	% \end{noindent}
 \end{frame}
 
+\begin{frame}{Problem setup}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{itemize}
+				\item $E(\lambda) = \tr(\rho_\lambda A)$
+				\item $\lim_{\lambda\to 0}E(\lambda) = E^*$
+				\item Define $\lambda = \lambda_0 x$, and assume we can access any $x \geq 1$
+				\item Take $1 = x_0 < x_1 < \cdots < x_n$, and collect $E(x_i)$
+				\item Interpolate a polynomial of degree $n$ to $(x_i, E(x_i)$)
+				\item Evaluate polynomial at $\lambda = 0$
+			\end{itemize}
+			\begin{align*}
+				E(0)     & \approx \sum_{i = 0}^n E(x_i)\gamma_i =: R_n \\
+				\gamma_i & = \prod_{k \neq j}\frac{x_k}{x_k - x_j}
+			\end{align*}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+				E(x) & = E^* + \sum_{k = 0}^\infty a_k \lambda_0^k x^k                                                  \\
+				E(0) & \approx \sum_{i = 0}^n\qty[E^* + \sum_{k = 0}^\infty a_k\lambda_0^k x_i^k]\gamma_i               \\
+				     & = E^* \sum_{i = 0}^n \gamma_i + \sum_{i = 0}^n\sum_{k = 0}^\infty a_k \lambda_0^k \gamma_i x_i^k \\
+				     & = E^* + \sum_{k = n+1}^\infty a_k\lambda_0^k \; \sum_{i = 0}^n \gamma_i x_i^k
+			\end{align*}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Bias and Variance}
+
+	\begin{columns}
+		\begin{column}{0.7\textwidth}
+			\begin{align*}
+				\mathrm{Bias}[\hat{R}_n]   & = (-1)^n E^{(n+1)}(\xi)\frac{C_n}{(n+1)!}        \\
+				\mathrm{Var}[\hat{E}(x_i)] & = \frac{\sigma_i^2}{N_i}                         \\
+				\mathrm{Var}[\hat{R}_n]    & = \sum_{i = 0}^n \gamma_i^2 \frac{\sigma^2}{N_i}
+			\end{align*}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\begin{align*}
+				C_n      & = \prod_{i = 0}^n x_i                           \\
+				\xi      & \in [0, x_n]                                    \\
+				\sigma_i & = \sqrt{\tr(\rho_{\lambda_0x_i}A^2) - E(x_i)^2} \\
+				N_i      & = \text{\# times $A$ is measured at $x_i$}
+			\end{align*}
+		\end{column}
+	\end{columns}
+
+\end{frame}
+
 \begin{frame}{What could we optimize?}
 	\begin{enumerate}
 		\item Is there a way to reduce the increase in variance?
@@ -99,28 +148,57 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Node Spacing}
+\begin{frame}{Variance reduction}
+	A \textbf{simple} calculation shows $\mathrm{Var}[\hat{R}_n] = \sum_{i = 0}^n \gamma_i^2 \frac{\sigma^2}{N_i}$ is minimized by
+	\begin{equation*}
+		N_i = N_\text{total}\frac{\abs{\gamma_i}}{\sum_{k = 0}^n \abs{\gamma_k}}
+	\end{equation*}
 
+	Defining $\Lambda = \sum_{i = 0}^n \abs{\gamma_i}$ and $N_\text{eff} = N_\text{total} / \Lambda^2$:
 	\begin{align*}
-		x_j^\mathrm{L} & = 1 + j(x_1 - 1)                                                                             \\
-		x_j^\mathrm{E} & = x_1^j                                                                                      \\
-		x_j^\mathrm{C} & = 1 + \frac{\sin^2(\frac{j}{n}\frac{\pi}{2})}{\sin^2(\frac{1}{n}\frac{\pi}{2})}(x_1 - 1)     \\
-		x_j^\mathrm{T} & = 1 + \frac{\sin^2(\frac{j}{n+1}\frac{\pi}{2})}{\sin^2(\frac{1}{n+1}\frac{\pi}{2})}(x_1 - 1)
+		\mathrm{Var}[\hat{R}_n] = \frac{\sigma^2}{N_\text{total}}\Lambda^2 = \frac{\sigma^2}{N_\text{eff}}
 	\end{align*}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.5\textwidth]{spacing.png}
-		\caption{<caption>}
-		\label{<label>}
-	\end{figure}
+\end{frame}
+
+\begin{frame}{Node Spacing}
+
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+				x_j^\mathrm{L} & = 1 + j(x_1 - 1)                                                                             \\
+				x_j^\mathrm{E} & = x_1^j                                                                                      \\
+				x_j^\mathrm{C} & = 1 + \frac{\sin^2(\frac{j}{n}\frac{\pi}{2})}{\sin^2(\frac{1}{n}\frac{\pi}{2})}(x_1 - 1)     \\
+				x_j^\mathrm{T} & = 1 + \frac{\sin^2(\frac{j}{n+1}\frac{\pi}{2})}{\sin^2(\frac{1}{n+1}\frac{\pi}{2})}(x_1 - 1)
+			\end{align*}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=\textwidth]{spacing.png}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}[h]
+				\centering
+				\includegraphics[width=\textwidth]{spacing-quality.png}
+			\end{figure}
+		\end{column}
+	\end{columns}
 
 \end{frame}
 
-% \begin{frame}{References}
-% 	\nocite{*}
-% 	\printbibliography[heading=none]
-% \end{frame}
+\begin{frame}{Overview}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.95\textheight]{overview.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Results}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{results.png}
+		\includegraphics[width=0.5\textwidth]{markovianity.png}
+	\end{figure}
+\end{frame}
 
 \begin{frame}[standout]
 	Thank you!
