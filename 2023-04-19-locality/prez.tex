@@ -35,6 +35,7 @@
 \usepackage{pythonhighlight}
 
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\e}{\mathrm{e}}
 \newcommand{\U}[1]{\mathsf{U}(#1)}
 \newcommand{\defeq}{\stackrel{\text{\tiny def}}{=}}
 
@@ -96,6 +97,24 @@
 	\footcitetext{automated-per}
 \end{frame}
 
+\begin{frame}{Probabilistic Error Cancellation}
+	\only<1>{
+		\begin{center}
+			\includegraphics[width=0.9\textwidth]{unitaries-at-home}
+		\end{center}
+	}
+	\only<2->{
+		\begin{enumerate}[<+->]
+			\item $\tilde{\mathcal{U}} = \tilde{\mathcal{U}}_d \cdots \tilde{\mathcal{U}}_1$ with $\tilde{\mathcal{U}}_i = \mathcal{U}_i \mathcal{N}_i$
+			\item Write noise as $\mathcal{N}_i = \e^{\mathcal{L}_i}$ where $\mathcal{L}_i(\rho) = \sum_{j = 1}^J \lambda_{ij}\qty(P_{ij}\rho P_{ij}^\dag - \rho)$
+			\item Factorize $\mathcal{N}_i = \prod_{j = 1}^J \mathcal{N}_{ij}$ where $\mathcal{N}_{ij} = (1 - p_{ij})\rho + p_{ij}P_{ij}\rho P_{ij}^\dag$
+			\item $\tilde{\mathcal{U}} = \prod_{i = 1}^d \mathcal{U}_i \prod_{j = 1}^J \mathcal{N}_{ij}$
+			\item $\tilde{\mathcal{U}}_\text{PEC} = \prod_{i = 1}^d \tilde{\mathcal{U}}_i \qty(\prod_{j = 1}^J \mathcal{N}_{ij}^{-1})$
+			\item Probabilistically implement $\mathcal{N}_{ij}$ by applying $P_{ij}$ before $\tilde{\mathcal{U}}_i$ with probability $p_{ij}$
+		\end{enumerate}
+	}
+\end{frame}
+
 \begin{frame}{Key Concepts}
 	\begin{columns}
 		\begin{column}[t]{0.5\textwidth}
@@ -107,49 +126,68 @@
 				\item Examples:
 			\end{enumerate}
 		\end{column}
-		\begin{column}[t]{0.5\textwidth}
-			{\Large Light Cone}
-			\begin{center}
-				\includegraphics[width=\textwidth]{lightcone}
-			\end{center}
-			\begin{enumerate}
-				\item something else
-			\end{enumerate}
-		\end{column}
+		\uncover<2->{
+			\begin{column}[t]{0.5\textwidth}
+				{\Large Light Cone}
+				\begin{center}
+					\includegraphics[width=\textwidth]{lightcone}
+				\end{center}
+				\begin{enumerate}
+					\item $\mu_i = \operatorname{supp}\!\qty(\mathcal{U}_i^\dag\mathcal{U}_{i+1}^\dag\cdots\mathcal{U}_d^\dag(O))$
+				\end{enumerate}
+			\end{column}
+		}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{Assumptions}
-	\begin{enumerate}
-		\item
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}{Numerical Results}
-	\only<1>{
-		\begin{center}
-			\includegraphics[width=0.9\textwidth]{numerical-setup}
-		\end{center}
+\begin{frame}{PEC Results}
+	\begin{table}[h]
+		\centering\begin{tabular}{c | c}
+			Unlocal                                                                                                         & Local                                                                                                                            \\ \toprule
+			$\hat{o}_z^\text{PEC}(\boldsymbol{\sigma}) = o_z(\boldsymbol{\sigma})\prod\limits_{i, j}\gamma_{ij}\sigma_{ij}$ & $\hat{o}_z^\text{LoPEC}(\boldsymbol{\sigma}) = o_z(\boldsymbol{\sigma})\prod\limits_{(i, j) \in \mu} \gamma_{i, j}\sigma_{i, j}$ \\
+			$\operatorname{Var}\!\qty[\hat{o}_z^\text{PEC}] = \order{\exp[4\sum_{i,j}\lambda_{ij}]}$                        & $\operatorname{Var}\!\qty[\hat{o}_z^\text{LoPEC}] = \order{\exp[4\sum_{(i, j) \in \mu}\lambda_{i, j}]}$
+		\end{tabular}
+	\end{table}
+	\uncover<2->{
+		\only<2>{
+			\begin{center}
+				\includegraphics[width=0.9\textwidth]{numerical-setup}
+			\end{center}
+		}
+		\only<3>{
+			\begin{center}
+				\includegraphics[width=0.49\textwidth]{distribution}
+				\includegraphics[width=0.5\textwidth]{overhead}
+			\end{center}
+		}
 	}
-	\only<2>{
-		\begin{center}
-			\includegraphics[width=0.49\textwidth]{distribution}
-			\includegraphics[width=0.5\textwidth]{overhead}
-		\end{center}
-	}
 \end{frame}
 
-\begin{frame}{Results}
-	\begin{align*}
-		\hat{o}_z^\text{LoPEC}(\boldsymbol{\sigma})      & \defeq o_z(\boldsymbol{\sigma})\prod_{(i, j) \in \mu} \gamma_{i, j}\sigma_{i, j} \\
-		\operatorname{Var}\!\qty[\hat{o}_z^\text{LoPEC}] & = \order{\exp[4\sum_{(i, j) \in \mu}\lambda_{i, j}]}
-	\end{align*}
+\begin{frame}{ZNE Results}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{zne-bounds}
+	\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Do we want these techniques in Mitiq?}
+% \begin{frame}{PEC Results}
+% 	\only<1>{
+% 		\begin{center}
+% 			\includegraphics[width=0.9\textwidth]{numerical-setup}
+% 		\end{center}
+% 	}
+% 	\only<2>{
+% 		\begin{center}
+% 			\includegraphics[width=0.49\textwidth]{distribution}
+% 			\includegraphics[width=0.5\textwidth]{overhead}
+% 		\end{center}
+% 	}
+% \end{frame}
+
+\begin{frame}[fragile]{Questions}
 	\begin{enumerate}
 		\item Does this slot into our existing \verb|execute_with_pec| function?
 		\item How does this perform as an observable $O$ go from local to ``unlocal''.
+		\item Are the assumptions (efficiently learned)
 	\end{enumerate}
 \end{frame}
 
