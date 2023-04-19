@@ -60,32 +60,46 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}{Review}
+\begin{frame}{Review\footcite{zne-pec}}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			{\Large Zero-Noise Extrapolation}
-			\begin{enumerate}
-				\item something
-			\end{enumerate}
+		\begin{column}[T]{0.5\textwidth}
+			{\Large Zero-Noise Extrapolation}%\footcite{zne-pec}}
+			\begin{center}
+				\includegraphics[width=0.9\textwidth]{zne_workflow}
+			\end{center}
+			\begin{itemize}
+				\item $\expval{A(\lambda)} = \tr\!\qty[A \rho(\lambda)]$
+				\item biased estimator, but \emph{no knowledge} of noise model needed
+				\item scales with number of scale factors
+			\end{itemize}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}[T]{0.5\textwidth}
 			{\Large Probabilistic Error Cancellation}
-			\begin{enumerate}
-				\item something else
-			\end{enumerate}
+			\begin{center}
+				\includegraphics[width=0.86\textwidth]{pec_workflow}
+			\end{center}
+			\begin{itemize}
+				\item $\expval{A} = \tr\!\qty[A \, \mathcal{U}(\rho)] = \sum\limits_{\vec{\alpha}} \eta_{\vec{\alpha}} \expval{A_{\vec{\alpha}}}_\text{noisy}$
+				\item \emph{unbiased} estimator, but requires detailed knowledge of noise model
+				\item more efficient methods exist\footnotemark
+			\end{itemize}
 		\end{column}
 	\end{columns}
+	\footcitetext{automated-per}
 \end{frame}
 
 \begin{frame}{Key Concepts}
 	\begin{columns}
-		\begin{column}{0.5\textwidth}
+		\begin{column}[t]{0.5\textwidth}
 			{\Large Local Observable}
 			\begin{enumerate}
-				\item something
+				\item An \emph{observable} is a thing that we can design an experiment to measure.
+				\item Mathematically, this means a self-adjoint, or Hermitian, operator $A = A^\dag$.
+				\item \textbf{Local} means $A$ is supported one a subset of the quantum systems at hand.
+				\item Examples:
 			\end{enumerate}
 		\end{column}
-		\begin{column}{0.5\textwidth}
+		\begin{column}[t]{0.5\textwidth}
 			{\Large Light Cone}
 			\begin{enumerate}
 				\item something else
@@ -100,16 +114,24 @@
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}{What is an observables light cone?}
-
+\begin{frame}{Results}
+	\begin{align*}
+		\hat{o}_z^\text{LoPEC}(\boldsymbol{\sigma})      & \defeq o_z(\boldsymbol{\sigma})\prod_{(i, j) \in \mu} \gamma_{i, j}\sigma_{i, j} \\
+		\operatorname{Var}\!\qty[\hat{o}_z^\text{LoPEC}] & = \order{\exp[4\sum_{(i, j) \in \mu}\lambda_{i, j}]}
+	\end{align*}
 \end{frame}
-
 
 \begin{frame}[fragile]{Do we want these techniques in Mitiq?}
 	\begin{enumerate}
 		\item Does this slot into our existing \verb|execute_with_pec| function?
 		\item How does this perform as an observable $O$ go from local to ``unlocal''.
 	\end{enumerate}
+\end{frame}
+
+\begin{frame}{and then\dots}
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{lookahead}
+	\end{center}
 \end{frame}
 
 \begin{frame}[standout]
