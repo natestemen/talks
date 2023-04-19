@@ -12,7 +12,7 @@
 \usepackage[style=authortitle-ibid,backend=biber]{biblatex}
 \addbibresource{refs.bib}
 \setbeamerfont{footnote}{size=\scriptsize}
-\setbeamercovered{transparent}
+% \setbeamercovered{transparent}
 
 \usepackage{physics}
 \usepackage{mathtools}
@@ -63,27 +63,35 @@
 \begin{frame}{Review\footcite{zne-pec}}
 	\begin{columns}
 		\begin{column}[T]{0.5\textwidth}
-			{\Large Zero-Noise Extrapolation}%\footcite{zne-pec}}
-			\begin{center}
-				\includegraphics[width=0.9\textwidth]{zne_workflow}
-			\end{center}
-			\begin{itemize}
-				\item $\expval{A(\lambda)} = \tr\!\qty[A \rho(\lambda)]$
-				\item biased estimator, but \emph{no knowledge} of noise model needed
-				\item scales with number of scale factors
-			\end{itemize}
+			\uncover<+->{{\Large Zero-Noise Extrapolation}}
+			\uncover<+->{\begin{center}
+					\includegraphics[width=0.9\textwidth]{zne_workflow}
+				\end{center}
+			}
+			\uncover<+->{
+				\begin{itemize}
+					\item $\expval{A(\lambda)} = \tr\!\qty[A \rho(\lambda)]$
+					\item biased estimator, but \emph{no knowledge} of noise model needed
+					\item error bounded by (Richardson) extrapolation error
+				\end{itemize}
+			}
 		\end{column}
-		\begin{column}[T]{0.5\textwidth}
-			{\Large Probabilistic Error Cancellation}
-			\begin{center}
-				\includegraphics[width=0.86\textwidth]{pec_workflow}
-			\end{center}
-			\begin{itemize}
-				\item $\expval{A} = \tr\!\qty[A \, \mathcal{U}(\rho)] = \sum\limits_{\vec{\alpha}} \eta_{\vec{\alpha}} \expval{A_{\vec{\alpha}}}_\text{noisy}$
-				\item \emph{unbiased} estimator, but requires detailed knowledge of noise model
-				\item more efficient methods exist\footnotemark
-			\end{itemize}
-		\end{column}
+		\uncover<+->{
+			\begin{column}[T]{0.5\textwidth}
+				{\Large Probabilistic Error Cancellation}
+				\uncover<+->{\begin{center}
+						\includegraphics[width=0.86\textwidth]{pec_workflow}
+					\end{center}
+				}
+				\uncover<+->{
+					\begin{itemize}
+						\item $\expval{A} = \tr\!\qty[A \, \mathcal{U}(\rho)] = \sum\limits_{\vec{\alpha}} \eta_{\vec{\alpha}} \expval{A_{\vec{\alpha}}}_\text{noisy}$
+						\item \emph{unbiased} estimator, but requires detailed knowledge of noise model
+						\item more efficient methods exist\footnotemark
+					\end{itemize}
+				}
+			\end{column}
+		}
 	\end{columns}
 	\footcitetext{automated-per}
 \end{frame}
