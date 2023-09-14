@@ -192,11 +192,24 @@
 			\vspace{-1cm}
 			\uncover<3->{
 				\begin{center}
-					\begin{tikzpicture}% TODO: add drawing for later slides
+					\begin{tikzpicture}
 						\draw[very thin,color=gray] (-0.1,-0.1) grid [xstep=1.5] (4.9, 3.9);
 
 						\draw[->] (-0.2,0) -- (5.2,0) node[below] {$\lambda$};
 						\draw[->] (0,-0.2) -- (0,4.2) node[left] {$\expval{A}_\lambda$};
+						\fill (1.5, 0) circle[radius=0pt] node[below] {$\lambda = 1$};
+
+						\draw[bottom color=BrickRed, top color=white,opacity=0.3, draw=none] (0,0) rectangle (1.5, 3.9);% -- (0,4.2) -- (1.5,3.9) -- (1.5,0) (0.75, 4);
+
+
+
+						\filldraw[gray!70!black] (1.5,2) circle (2pt);
+						\filldraw[gray!70!black] (3,  0.9) circle (2pt);
+						\filldraw[gray!70!black] (4.5,0.5) circle (2pt);
+
+						\draw[dashed, domain=0:5, variable=\x, OliveGreen, line width=1pt] plot ({\x}, {-0.5*\x + 2.6});
+
+						\filldraw[BrickRed] (0,2.6) circle (2pt);
 					\end{tikzpicture}
 				\end{center}
 			}
