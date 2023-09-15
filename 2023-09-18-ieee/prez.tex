@@ -151,8 +151,8 @@
 				\end{block}
 			}
 			\uncover<4->{
-				\begin{tikzpicture}[overlay] % TODO: make transparent/change color
-					\node[draw, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 2.5) {Scalable, but unfeasible};
+				\begin{tikzpicture}[overlay]
+					\node[draw=none, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 2.5) {Scalable, but unfeasible};
 				\end{tikzpicture}
 			}
 		\end{column}
@@ -168,7 +168,7 @@
 			}
 			\uncover<5->{
 				\begin{tikzpicture}[overlay]
-					\node[draw, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 1.95) {Unscalable$^*$, but feasible};
+					\node[draw=none, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 1.95) {Unscalable$^*$, but feasible};
 				\end{tikzpicture}
 			}
 		\end{column}
