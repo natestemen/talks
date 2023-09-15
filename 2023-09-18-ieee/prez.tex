@@ -177,49 +177,55 @@
 
 \begin{frame}{Zero-Noise Extrapolation (ZNE)}
 
-	\begin{exampleblock}{Key Idea}
+	\begin{exampleblock}{Key Idea}<+->
 		Scale noise up, extrapolate back to zero-noise value.
 	\end{exampleblock}
 
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
-			\uncover<2->{
+			\uncover<+->{
 				\vspace{-2cm}
 				\begin{equation*}
 					\partial_t \rho = - i \comm{H}{\rho} + \lambda \mathcal{L}(\rho)
 				\end{equation*}
 			}
 			\vspace{-1cm}
-			\uncover<3->{
-				\begin{center}
-					\begin{tikzpicture}
+			\begin{center}
+				\begin{tikzpicture}
+					\uncover<+->{
 						\draw[very thin,color=gray] (-0.1,-0.1) grid [xstep=1.5] (4.9, 3.9);
 
 						\draw[->] (-0.2,0) -- (5.2,0) node[below] {$\lambda$};
 						\draw[->] (0,-0.2) -- (0,4.2) node[left] {$\expval{A}_\lambda$};
-						\fill (1.5, 0) circle[radius=0pt] node[below] {$\lambda = 1$};
+						\fill (1.5, 0) circle[radius=0pt] node[below] {$1$};
+					}
 
-						\draw[bottom color=BrickRed, top color=white,opacity=0.3, draw=none] (0,0) rectangle (1.5, 3.9);% -- (0,4.2) -- (1.5,3.9) -- (1.5,0) (0.75, 4);
+					\uncover<+->{
+						\draw[bottom color=BrickRed, top color=white,opacity=0.3, draw=none] (0,0) rectangle (1.5, 3.9);
+					}
+					\only<4>{\node[rotate=45, color=BrickRed] at (0.75, 1) {inaccessible};}
 
-
-
+					\uncover<+->{
 						\filldraw[gray!70!black] (1.5,2) circle (2pt);
+					}
+					\uncover<+->{
 						\filldraw[gray!70!black] (3,  0.9) circle (2pt);
 						\filldraw[gray!70!black] (4.5,0.5) circle (2pt);
-
+					}
+					\uncover<+->{
 						\draw[dashed, domain=0:5, variable=\x, OliveGreen, line width=1pt] plot ({\x}, {-0.5*\x + 2.6});
-
+					}
+					\uncover<+->{
 						\filldraw[BrickRed] (0,2.6) circle (2pt);
-					\end{tikzpicture}
-				\end{center}
-			}
+					}
+				\end{tikzpicture}
+			\end{center}
 		\end{column}
 
 		\begin{column}{0.6\textwidth}
-			\uncover<4->{How do we scale the noise \textbf{up}?}
-			\uncover<5->{
+			\uncover<+->{How do we scale the noise \textbf{up}?}
+			\uncover<+->{
 				\begin{center}
-					% add y axis label/explanation
 					\begin{tikzpicture}
 						\begin{axis}[ymin=0, ymax=10, xmin=-.5, xmax=16.5, tiny, axis y line=left, ytick=\empty, axis x line=bottom, xtick=\empty, xlabel=$t$, ylabel=Pulse strength]
 							\addplot[blue, ultra thick] table {pulse.dat};
@@ -236,7 +242,7 @@
 			\begin{columns}[onlytextwidth]
 				\begin{column}{0.5\textwidth}
 					\vspace{3cm}
-					\uncover<6->{
+					\uncover<10->{
 						\begin{quantikz}
 							& \gate{} & \gate[2]{}  & \qw     & \qw \\
 							& \qw     &             & \gate{} & \qw
@@ -245,7 +251,7 @@
 				\end{column}
 				\begin{column}[t]{0.5\textwidth}
 					\begin{tikzpicture}
-						\uncover<6-6>{
+						\only<10>{
 							\node[scale=.7] {
 								\begin{quantikz}
 									& \gate[][1.2cm]{} & \gate[2][1.2cm]{} & \qw              & \qw \\
@@ -253,7 +259,7 @@
 								\end{quantikz}
 							};
 						}
-						\uncover<7->{
+						\uncover<+->{
 							\node[scale=.5] (local) {
 								\begin{quantikz}
 									& \gate{} & \gate[style={fill=red!20}]{\dagger} & \gate{} & \gate[2]{} & \gate[2, style={fill=red!20}]{\dagger} & \gate[2]{} & \qw     & \qw                          & \qw     & \qw \\
