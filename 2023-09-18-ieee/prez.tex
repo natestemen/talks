@@ -35,7 +35,8 @@
 \title{Error Mitigation with Mitiq}
 \date{Sep 18, 2023}
 \author{Nate Stemen}
-\institute{Unitary Fund}
+\institute{\includegraphics[width=0.3\textwidth]{unitary_fund_logo.png}\\[\medskipamount]
+\includegraphics[width=0.3\textwidth]{team.png}}
 
 
 \begin{document}
@@ -51,7 +52,7 @@
 \end{frame}
 
 \begin{frame}{Experience}
-	\begin{enumerate}
+	\begin{enumerate}[<+->]
 		\item Who has written a quantum program before?
 		\item Who has run a quantum program on hardware before?
 		\item Who has used error mitigation?
@@ -150,6 +151,22 @@
 					\end{itemize}
 				\end{block}
 			}
+			% \only<3>{
+			% 	\begin{tikzpicture}[domain=0:4, samples=100, scale=0.75]%, overlay]
+			% 		\draw[very thin,color=gray] (-0.1,-0.1) grid (3.9,3.9);
+
+			% 		\draw[->] (-0.2,0) -- (4.2,0) node[below] {$\langle O\rangle$};
+			% 		\draw[->] (0,-0.2) -- (0,4.2) node[left] {count};
+
+			% 		\draw[color=black]  plot (\x,{3*exp(-5*(\x - 2)^2)})          node[right] {ideal};
+
+			% 		\draw[color=red]    plot (\x,{2.6*exp(-4*(\x - 1)^2)})          node[above] {noisy};
+			% 		\fill[fill=red!20, opacity=0.5]   plot (\x,{2.6*exp(-4*(\x - 1)^2)});
+
+			% 		\draw[color=blue]   plot (\x,{exp(-1*(\x - 2)^2)})             node[right] {mitigated};
+			% 		\fill[fill=blue!20, opacity=0.5]   plot (\x,{exp(-1*(\x - 2)^2)});
+			% 	\end{tikzpicture}
+			% }
 			\uncover<4->{
 				\begin{tikzpicture}[overlay]
 					\node[draw=none, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 2.5) {Scalable, but unfeasible};
@@ -195,9 +212,10 @@
 					\uncover<+->{
 						\draw[very thin,color=gray] (-0.1,-0.1) grid [xstep=1.5] (4.9, 3.9);
 
-						\draw[->] (-0.2,0) -- (5.2,0) node[below] {$\lambda$};
-						\draw[->] (0,-0.2) -- (0,4.2) node[left] {$\expval{A}_\lambda$};
-						\fill (1.5, 0) circle[radius=0pt] node[below] {$1$};
+						\draw[->] (-0.1,0) -- (5.2,0) node[below] {$\lambda$};
+						\draw[->] (0,-0.1) -- (0,4.2) node[left] {$\expval{A}_\lambda$};
+						\fill (0, -0.1)   circle[radius=0pt] node[below] {$0$};
+						\fill (1.5, -0.1) circle[radius=0pt] node[below] {$1$};
 					}
 
 					\uncover<+->{
@@ -347,7 +365,7 @@
 
 \begin{frame}{Let's try Mitiq!}
 	\begin{center}
-		\qrcode{https://github.com/unitaryfund/mitiq-tutorial/}
+		\qrcode[height=5cm]{https://github.com/unitaryfund/mitiq-tutorial/}
 
 		\url{https://github.com/unitaryfund/mitiq-tutorial/}
 	\end{center}
@@ -355,15 +373,33 @@
 
 \begin{frame}[fragile]{Executors Continued}
 	An executor is anything with a type signature:
-	\begin{verbatim}
-		QPROGRAM -> QuantumResult
-	\end{verbatim}
-	\begin{align*}
-		\mathtt{QPROGRAM}      & = \mathtt{cirq.Circuit} \cup \mathtt{qiskit.QuantumCircuit} \cup \mathtt{pyquil.Program} \\
-		\mathtt{QuantumResult} & = \mathtt{float} \cup \mathtt{density} \cup \mathtt{bitstring}
-	\end{align*}
-	\todo{replace circuit names with images}
+	\begin{center}
+		\texttt{(QPROGRAM -> QuantumResult)}
+	\end{center}
+	\vspace{1cm}
+	\texttt{QPROGRAM} $ =
+		\begin{array}{l}
+			\includegraphics[width=0.1\textwidth]{cirq.png}
+		\end{array}
+		\bigcup
+		\begin{array}{l}
+			\includegraphics[width=0.1\textwidth]{qiskit.png}
+		\end{array}
+		\bigcup
+		\begin{array}{l}
+			\includegraphics[width=0.09\textwidth]{pyquil.png}
+		\end{array}
+		\bigcup
+		\begin{array}{l}
+			\includegraphics[width=0.11\textwidth]{braket.png}
+		\end{array}
+		\bigcup
+		\begin{array}{l}
+			\includegraphics[width=0.12\textwidth]{pennylane.png}
+		\end{array}
+	$
 
+	\texttt{QuantumResult} $ = \mathtt{float} \cup \mathtt{density} \cup \mathtt{bitstring}$
 \end{frame}
 
 \begin{frame}{Calibration}
@@ -393,7 +429,7 @@
 		\includegraphics[width=0.7\textwidth]{jobs}
 	\end{figure}
 	\begin{center}
-		\qrcode{https://unitary.fund/careers/}
+		\qrcode[height=3cm]{https://unitary.fund/careers/}
 
 		\url{https://unitary.fund/careers/}
 	\end{center}
