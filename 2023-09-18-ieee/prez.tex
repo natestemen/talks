@@ -428,22 +428,26 @@
 \begin{frame}{Calibration}
 \end{frame}
 
-\begin{frame}{Sneak Preview of Part II}
-	\begin{exampleblock}{Probabilistic Error Cancellation}
-		\textbf{Key Idea}: Use noisy operations to build up noiseless ones by selective cancellation and sampling.
-	\end{exampleblock}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.2\textwidth]{example-image-a}
-	\end{figure}
+\begin{frame}[t]{Sneak Preview of Part II}
+	\only<1>{
+		\begin{exampleblock}{Probabilistic Error Cancellation}
+			\textbf{Key Idea}: Use noisy operations to build up noiseless ones by selective cancellation and sampling.
+		\end{exampleblock}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{pec_workflow.png}
+		\end{figure}
+	}
 
-	\begin{exampleblock}{Digital Dynamical Decoupling}
-		\textbf{Key Idea}: The devil finds work for idle [qubits].
-	\end{exampleblock}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.2\textwidth]{example-image-b}
-	\end{figure}
+	\only<2>{
+		\begin{exampleblock}{Digital Dynamical Decoupling}
+			\textbf{Key Idea}: The devil finds work for idle [qubits].
+		\end{exampleblock}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.7\textwidth]{ddd_workflow.png}
+		\end{figure}
+	}
 \end{frame}
 
 \begin{frame}{Interested in this work?}
