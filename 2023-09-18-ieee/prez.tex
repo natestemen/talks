@@ -83,21 +83,44 @@
 		But we still want to use them!
 	\end{block}
 	\begin{columns}
-		\begin{column}{0.35\textwidth}
-			\begin{itemize}
-				\item (In)coherent noise
-				\item SPAM errors
-				\item Crosstalk
-				\item Calibration errors
-				\item \dots
-			\end{itemize}
-		\end{column}
-		\begin{column}{0.6\textwidth}
-			\begin{figure}[H]
-				\centering
-				\includegraphics[width=0.7\textwidth]{example-image-a}
-			\end{figure}
-		\end{column}
+		\uncover<2->{
+			\begin{column}{0.35\textwidth}
+				\begin{itemize}[<+->]
+					\item (In)coherent noise
+					\item SPAM errors
+					\item Crosstalk
+					\item Calibration errors
+					\item \dots
+				\end{itemize}
+			\end{column}
+		}
+		\uncover<+->{
+			\begin{column}{0.6\textwidth}
+				\begin{center}
+					\begin{tikzpicture}[domain=0:6, samples=200]
+						\draw[very thin,color=gray] (-0.1,-0.1) grid (5.9,3.9);
+
+						\draw[->] (-0.2,0) -- (6.2,0) node[below] {$\langle O\rangle$};
+						\draw[->] (0,-0.2) -- (0,4.2) node[left] {count};
+
+						\draw[dashed, color=black] plot (\x,{3*exp(-5*(\x - 3)^2)}) node[right] {};
+						\node at (3, 3.3) {ideal};
+
+						\uncover<+->{
+							\draw[color=red] plot (\x,{2.6*exp(-4*(\x - 2)^2)}) node[above] {};
+							\node[color=red] at (2,1) {noisy};
+							\fill[fill=red!20, opacity=0.5] plot (\x,{2.6*exp(-4*(\x - 2)^2)});
+						}
+
+						\uncover<+->{
+							\draw[color=blue] plot (\x,{exp(-1*(\x - 3)^2)}) node[right] {};
+							\node[color=blue] at (3,0.3) {mitigated};
+							\fill[fill=blue!20, opacity=0.5] plot (\x,{exp(-1*(\x - 3)^2)});
+						}
+					\end{tikzpicture}
+				\end{center}
+			\end{column}
+		}
 	\end{columns}
 \end{frame}
 
@@ -160,22 +183,6 @@
 					\end{itemize}
 				\end{block}
 			}
-			% \only<3>{
-			% 	\begin{tikzpicture}[domain=0:4, samples=100, scale=0.75]%, overlay]
-			% 		\draw[very thin,color=gray] (-0.1,-0.1) grid (3.9,3.9);
-
-			% 		\draw[->] (-0.2,0) -- (4.2,0) node[below] {$\langle O\rangle$};
-			% 		\draw[->] (0,-0.2) -- (0,4.2) node[left] {count};
-
-			% 		\draw[color=black]  plot (\x,{3*exp(-5*(\x - 2)^2)})          node[right] {ideal};
-
-			% 		\draw[color=red]    plot (\x,{2.6*exp(-4*(\x - 1)^2)})          node[above] {noisy};
-			% 		\fill[fill=red!20, opacity=0.5]   plot (\x,{2.6*exp(-4*(\x - 1)^2)});
-
-			% 		\draw[color=blue]   plot (\x,{exp(-1*(\x - 2)^2)})             node[right] {mitigated};
-			% 		\fill[fill=blue!20, opacity=0.5]   plot (\x,{exp(-1*(\x - 2)^2)});
-			% 	\end{tikzpicture}
-			% }
 			\uncover<4->{
 				\begin{tikzpicture}[overlay]
 					\node[draw=none, fill=yellow, rotate=20, minimum width=5cm, minimum height=1cm] at (3.5, 2.5) {Scalable, but unfeasible};
