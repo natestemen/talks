@@ -15,21 +15,12 @@
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes.geometric, arrows, shadows}
 \usetikzlibrary{fit, backgrounds}
-% \colorlet{LightLavender}{Lavender!40!}
 \newtcolorbox{prob}{colback=red!5!white,colframe=red!75!black}
 \usefonttheme[onlymath]{serif}
 \usepackage{quantikz}
 \usepackage{qrcode}
 \usepackage{pgfplots}
 
-% todonotes hack
-\usepackage{xkeyval}
-\usepackage{todonotes}
-\presetkeys{todonotes}{inline}{}
-
-\newcommand{\R}{\mathbb{R}}
-\newcommand{\U}[1]{\mathsf{U}(#1)}
-\newcommand{\defeq}{\stackrel{\text{\tiny def}}{=}}
 \def\Put(#1,#2)#3{\leavevmode\makebox(0,0){\put(#1,#2){#3}}}
 
 
@@ -395,39 +386,39 @@
 	\end{center}
 \end{frame}
 
-\begin{frame}[fragile]{Executors Continued}
-	An executor is anything with a type signature:
-	\begin{center}
-		\texttt{(QPROGRAM -> QuantumResult)}
-	\end{center}
-	\vspace{1cm}
-	\texttt{QPROGRAM} $ =
-		\begin{array}{l}
-			\includegraphics[width=0.1\textwidth]{cirq.png}
-		\end{array}
-		\bigcup
-		\begin{array}{l}
-			\includegraphics[width=0.1\textwidth]{qiskit.png}
-		\end{array}
-		\bigcup
-		\begin{array}{l}
-			\includegraphics[width=0.09\textwidth]{pyquil.png}
-		\end{array}
-		\bigcup
-		\begin{array}{l}
-			\includegraphics[width=0.11\textwidth]{braket.png}
-		\end{array}
-		\bigcup
-		\begin{array}{l}
-			\includegraphics[width=0.12\textwidth]{pennylane.png}
-		\end{array}
-	$
+% \begin{frame}[fragile]{Executors Continued}
+% 	An executor is anything with a type signature:
+% 	\begin{center}
+% 		\texttt{(QPROGRAM -> QuantumResult)}
+% 	\end{center}
+% 	\vspace{1cm}
+% 	\texttt{QPROGRAM} $ =
+% 		\begin{array}{l}
+% 			\includegraphics[width=0.1\textwidth]{cirq.png}
+% 		\end{array}
+% 		\bigcup
+% 		\begin{array}{l}
+% 			\includegraphics[width=0.1\textwidth]{qiskit.png}
+% 		\end{array}
+% 		\bigcup
+% 		\begin{array}{l}
+% 			\includegraphics[width=0.09\textwidth]{pyquil.png}
+% 		\end{array}
+% 		\bigcup
+% 		\begin{array}{l}
+% 			\includegraphics[width=0.11\textwidth]{braket.png}
+% 		\end{array}
+% 		\bigcup
+% 		\begin{array}{l}
+% 			\includegraphics[width=0.12\textwidth]{pennylane.png}
+% 		\end{array}
+% 	$
 
-	\texttt{QuantumResult} $ = \mathtt{float} \cup \mathtt{density} \cup \mathtt{bitstring}$
-\end{frame}
+% 	\texttt{QuantumResult} $ = \mathtt{float} \cup \mathtt{density} \cup \mathtt{bitstring}$
+% \end{frame}
 
-\begin{frame}{Calibration}
-\end{frame}
+% \begin{frame}{Calibration}
+% \end{frame}
 
 \begin{frame}[t]{Sneak Preview of Part II}
 	\only<1>{
